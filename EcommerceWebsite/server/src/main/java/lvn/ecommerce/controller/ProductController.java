@@ -23,18 +23,8 @@ public class ProductController {
      */
     @CrossOrigin("*")
     @GetMapping("/all")
-    public ResponseEntity<?> getAllProducts() {
-        try {
-            List<Product> allProds = productService.listAllProducts();
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Access-Control-Allow-Origin", "*");
-            headers.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-            headers.add("Access-Control-Allow-Credentials", "true");
-            headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS,HEAD");
-            return ResponseEntity.status(HttpStatus.OK).headers(headers).body(allProds);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+    public List<Product> getAllProducts() {
+        return productService.listAllProducts();
     }
 
     /**
