@@ -1,14 +1,13 @@
 package lvn.ecommerce.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter @Setter @NoArgsConstructor
@@ -24,7 +23,7 @@ public class Product {
 
     private String brand;
 
-    private String madein;
+    private String madeIn;
 
     private float price;
 
@@ -32,8 +31,8 @@ public class Product {
     @JsonManagedReference(value = "item-product")
     private Set<Item> items;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "category_id")
-    @JsonBackReference(value = "product-category")
+    @JsonIgnoreProperties(value = "product")
     private Category category;
 }

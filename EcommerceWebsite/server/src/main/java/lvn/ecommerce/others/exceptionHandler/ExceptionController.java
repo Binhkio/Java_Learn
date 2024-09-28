@@ -14,7 +14,8 @@ public class ExceptionController {    /**
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorMessage handleAllException(Exception ex, WebRequest request) {
-        // quá trình kiểm soat lỗi diễn ra ở đây
+        // quá trình kiểm soat lỗi diễn ra ở
+        System.out.println("Day la loi: " + ex.getMessage());
         return new ErrorMessage(10000, ex.getLocalizedMessage());
     }
     /**

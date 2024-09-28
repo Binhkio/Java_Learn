@@ -65,7 +65,7 @@ public class ProductController {
         oldProduct.setName(product.getName());
         oldProduct.setPrice(product.getPrice());
         oldProduct.setBrand(product.getBrand());
-        oldProduct.setMadein(product.getMadein());
+        oldProduct.setMadeIn(product.getMadeIn());
         return productService.save(oldProduct);
     }
 

@@ -31,7 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/**").permitAll()
-                .anyRequest().authenticated();
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.exceptionHandling()
                 .authenticationEntryPoint(
@@ -42,8 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             );
                         }
                 );
-
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

@@ -1,5 +1,8 @@
 package lvn.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +23,6 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "product-category")
+    @JsonIgnore()
     private Set<Product> products;
 }
