@@ -1,0 +1,9 @@
+<div class="category-select">
+  <h3>Select Category</h3>
+  <ul>
+    <li *ngFor="let category of categories" (click)="selectCategory(category)">
+      <input type="checkbox" [id]="'c'+category.id" [checked]="checkedCategories.has(category.id)" disabled>
+      <label [htmlFor]="'c'+category.id">{{ category.name }}</label>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,19 @@
+<div class="product-detail" *ngIf="product">
+  <div class="img-bounder">
+    <img src="src/assets/sample.jpg" alt="Sample image" />
+  </div>
+  <div class="detail">
+    <h2>{{ product.name }}</h2>
+    <p>Category: {{ product.category.name }}</p>
+    <p>Description: This is a detailed description of {{ product.name }}.</p>
+    
+    <div>
+      <label for="quantity">Quantity:</label>
+      <input matInput type="number" id="quantity" [(ngModel)]="quantity" min="1" />
+    </div>
+    
+    <button mat-raised-button color="primary" (click)="addToCart()">
+      Add to Cart
+    </button>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { protectRoute } from './protect.route';
 import { RegisterComponent } from './pages/authentication/register/register.component';
+import { ProductComponent } from './pages/product/product.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,11 @@ const routes: Routes = [
         path: 'homepage',
         component: HomepageComponent,
         title: 'Home'
+      },
+      {
+        path: 'product/:id',
+        component: ProductComponent,
+        title: 'Product detail'
       }
     ],
   },

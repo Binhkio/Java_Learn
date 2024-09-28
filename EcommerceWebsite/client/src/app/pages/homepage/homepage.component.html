@@ -1,1 +1,20 @@
-<p>homepage works!</p>
+<div class="product-list">
+  <app-category (categorySelected)="selectCategory($event)"></app-category>
+  <div class="products">
+    <h3>Products</h3>
+    <div class="product-cards">
+      <mat-card class="custom-card" *ngFor="let product of filteredProducts" (click)="viewProductDetail(product)">
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="product.name">
+        <mat-card-header>
+          <mat-card-title>{{ product.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-chip>{{ product.category.name }}</mat-chip>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-flat-button>View detail</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

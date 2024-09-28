@@ -1,0 +1,15 @@
+.category-select {
+  padding: 15px;
+  border-right: 1px solid #ccc;
+}
+.category-select ul {
+  list-style-type: none;
+  padding: 0;
+}
+.category-select li {
+  cursor: pointer;
+  padding: 5px;
+}
+.category-select li:hover {
+  background-color: #f0f0f0;
+}

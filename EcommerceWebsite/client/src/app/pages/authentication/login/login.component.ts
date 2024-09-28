@@ -18,9 +18,6 @@ export class LoginComponent {
       const token = data.accessToken;
       localStorage.setItem('token', token);
       this.router.navigateByUrl('/homepage');
-    }, (error) => {
-      console.error(error);
-      this.router.navigateByUrl('/auth/login');
     });
   }
 }
