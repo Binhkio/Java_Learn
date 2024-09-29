@@ -9,23 +9,13 @@ import { BaseService } from './base.service';
   providedIn: 'root'
 })
 export class ProductService {
-  constructor(private http: HttpClient, private service: BaseService) { }
+  constructor(private service: BaseService) { }
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.baseUrl}/product/all`, {
-      headers: this.service.generateAuthHeaders()
-    }).pipe(
-      retry(2),
-      catchError(this.service.handleError)
-    );
+    return this.service.get<Product[]>('product/all');
   }
 
   getProduct(id: number): Observable<Product> {
-    return this.http.get<Product>(`${environment.baseUrl}/product/${id}`, {
-      headers: this.service.generateAuthHeaders()
-    }).pipe(
-      retry(2),
-      catchError(this.service.handleError)
-    );
+    return this.service.get<Product>(`product/${id}`);
   }
 }

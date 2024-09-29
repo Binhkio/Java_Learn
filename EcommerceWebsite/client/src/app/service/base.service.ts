@@ -1,12 +1,46 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, retry, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  get<T>(path: string): Observable<T> {
+    return this.http.get<T>(`${environment.baseUrl}/${path}`, {
+      headers: this.generateAuthHeaders()
+    }).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  post<T>(path: string, body?: Object): Observable<T> {
+    return this.http.post<T>(`${environment.baseUrl}/${path}`, body, {
+      headers: this.generateAuthHeaders()
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  put<T>(path: string, body?: Object): Observable<T> {
+    return this.http.put<T>(`${environment.baseUrl}/${path}`, body, {
+      headers: this.generateAuthHeaders()
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  delete<T>(path: string): Observable<T> {
+    return this.http.delete<T>(`${environment.baseUrl}/${path}`, {
+      headers: this.generateAuthHeaders()
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   generateAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
@@ -18,6 +52,6 @@ export class BaseService {
 
   handleError<T>(err: Error, results: Observable<T>) {
     console.error(err, results);
-    return results;
+    return throwError(() => err);
   }
 }

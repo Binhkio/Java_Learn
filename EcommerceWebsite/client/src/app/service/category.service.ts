@@ -9,14 +9,9 @@ import { catchError, Observable, retry } from 'rxjs';
   providedIn: 'root'
 })
 export class CategoryService {
-  constructor(private http: HttpClient, private service: BaseService) {}
+  constructor(private service: BaseService) {}
 
-  getAllCategories(): Observable<Catergory[]> {
-    return this.http.get<Catergory[]>(`${environment.baseUrl}/category/all`, {
-      headers: this.service.generateAuthHeaders()
-    }).pipe(
-      retry(2),
-      catchError(this.service.handleError)
-    );
+  getAllCategories() {
+    return this.service.get<Catergory[]>('category/all');
   }
 }
