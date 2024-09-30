@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/cart")
+@RequestMapping("/api/v1/cart")
 @RestController
 public class CartController {
     @Autowired

@@ -1,6 +1,7 @@
 package lvn.ecommerce.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +23,9 @@ public class Item {
     @JsonBackReference(value = "item-cart")
     private Cart cart;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", nullable = false, referencedColumnName = "product_id")
-    @JsonBackReference(value = "item-product")
+    @JsonIgnoreProperties(value = "product")
     private Product product;
 
     private int quantity;
