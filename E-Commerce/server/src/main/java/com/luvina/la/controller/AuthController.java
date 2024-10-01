@@ -4,24 +4,34 @@ package com.luvina.la.controller;
 import com.luvina.la.config.jwt.AuthUserDetails;
 import com.luvina.la.config.jwt.JwtTokenProvider;
 import com.luvina.la.config.jwt.UserDetailsServiceImpl;
+import com.luvina.la.dto.UserDTO;
+import com.luvina.la.entity.Cart;
+import com.luvina.la.entity.User;
+import com.luvina.la.mapper.UserMapper;
 import com.luvina.la.payload.LoginRequest;
 import com.luvina.la.payload.LoginResponse;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+
+import com.luvina.la.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequestMapping("/api/v1/auth")
 @RestController
 public class AuthController {
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
@@ -29,6 +39,9 @@ public class AuthController {
     final JwtTokenProvider tokenProvider;
     final AuthenticationManager authenticationManager;
     final UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserDetailsServiceImpl userDetailsService) {
         this.authenticationManager = authenticationManager;
@@ -49,7 +62,7 @@ public class AuthController {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            loginRequest.getUsername(),
+                            loginRequest.getEmail(),
                             loginRequest.getPassword()
                     )
             );
@@ -67,9 +80,22 @@ public class AuthController {
         return new LoginResponse(errors);
     }
 
+    @PostMapping("/register")
+    public String register(@RequestBody User user) throws Exception {
+        try {
+            PasswordEncoder encoder = new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(user.getPassword()));
+            Cart newCart = new Cart();
+            user.setCart(newCart);
+            userRepository.save(user);
+            return "Successes";
+        } catch (Exception e) {
+            throw new Exception("User already existed");
+        }
+    }
+
     /**
      * test token API
-     *
      * @return
      */
     @RequestMapping("/test-auth")

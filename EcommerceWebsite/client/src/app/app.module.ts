@@ -24,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TokenInterceptor } from './shared/auth/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule,
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    TokenInterceptor,
   ],
   bootstrap: [AppComponent]
 })

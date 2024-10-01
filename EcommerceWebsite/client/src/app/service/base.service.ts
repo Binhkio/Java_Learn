@@ -10,44 +10,28 @@ export class BaseService {
   constructor(private http: HttpClient) {}
 
   get<T>(path: string): Observable<T> {
-    return this.http.get<T>(`${environment.baseUrl}/${path}`, {
-      headers: this.generateAuthHeaders()
-    }).pipe(
+    return this.http.get<T>(`${environment.baseUrl}/${path}`).pipe(
       retry(1),
       catchError(this.handleError)
     );
   }
 
   post<T>(path: string, body?: Object): Observable<T> {
-    return this.http.post<T>(`${environment.baseUrl}/${path}`, body, {
-      headers: this.generateAuthHeaders()
-    }).pipe(
+    return this.http.post<T>(`${environment.baseUrl}/${path}`, body).pipe(
       catchError(this.handleError)
     );
   }
 
   put<T>(path: string, body?: Object): Observable<T> {
-    return this.http.put<T>(`${environment.baseUrl}/${path}`, body, {
-      headers: this.generateAuthHeaders()
-    }).pipe(
+    return this.http.put<T>(`${environment.baseUrl}/${path}`, body).pipe(
       catchError(this.handleError)
     );
   }
 
   delete<T>(path: string): Observable<T> {
-    return this.http.delete<T>(`${environment.baseUrl}/${path}`, {
-      headers: this.generateAuthHeaders()
-    }).pipe(
+    return this.http.delete<T>(`${environment.baseUrl}/${path}`).pipe(
       catchError(this.handleError)
     );
-  }
-
-  generateAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return headers;
   }
 
   handleError<T>(err: Error, results: Observable<T>) {

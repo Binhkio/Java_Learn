@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-manage
+    name: ecommerce
 
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
@@ -18,13 +18,13 @@ spring:
         jdbc.time_zone: UTC
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: update # Default: none
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
 
   flyway:
-    enabled: true
+    enabled: false
 
   main:
     allow-circular-references: true
@@ -32,4 +32,4 @@ spring:
   output.ansi.enabled: ALWAYS
 
 server:
-  port: 8085
+  port: 8080

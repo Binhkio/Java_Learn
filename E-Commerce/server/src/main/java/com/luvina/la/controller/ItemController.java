@@ -1,5 +1,6 @@
 package com.luvina.la.controller;
 
+import com.luvina.la.config.jwt.AuthUserDetails;
 import com.luvina.la.entity.Cart;
 import com.luvina.la.entity.Item;
 import com.luvina.la.entity.Product;
@@ -31,11 +32,11 @@ public class ItemController {
      */
     @PostMapping("/add")
     public Item addItem(@RequestParam Long pId, @RequestParam(defaultValue = "1") int quantity, Authentication authentication) {
-        User u = (User) authentication.getPrincipal();
-        User user = userRepository.findById(u.getId()).orElse(null);
+        AuthUserDetails u = (AuthUserDetails) authentication.getPrincipal();
+        User user = u.getUser();
         Product product = productRepository.findById(pId).orElse(null);
         assert user != null;
-        Cart cart = cartRepository.findById(user.getCart().getId()).orElse(null);
+        Cart cart = user.getCart();
         Item newItem = new Item();
         newItem.setProduct(product);
         newItem.setQuantity(quantity);

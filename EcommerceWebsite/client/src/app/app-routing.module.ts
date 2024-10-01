@@ -7,11 +7,13 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { protectRoute } from './protect.route';
 import { RegisterComponent } from './pages/authentication/register/register.component';
 import { ProductComponent } from './pages/product/product.component';
+import { AuthorizeGuard } from './shared/auth/authorize.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: FullComponent,
+    canActivate: [AuthorizeGuard],
     children: [
       {
         path: '',

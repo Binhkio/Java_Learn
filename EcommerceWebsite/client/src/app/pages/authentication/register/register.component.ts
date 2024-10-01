@@ -18,9 +18,6 @@ export class RegisterComponent {
     this.auth.register(this.email, this.password, this.username).subscribe(data => {
       this.router.navigateByUrl('/auth/login');
       alert("Register successed");
-    }, (error) => {
-      console.error(error);
-      alert("Something went wrong!!!");
     });
   }
 }

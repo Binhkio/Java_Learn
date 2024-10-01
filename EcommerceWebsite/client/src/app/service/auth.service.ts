@@ -14,7 +14,7 @@ export class AuthService {
 
   login(email: string = '', password: string = '') {
     const userInfo = { email, password };
-    return this.service.post<{email: string, accessToken: string}>('auth/login', userInfo);
+    return this.service.post<{accessToken: string, tokenType: string}>('auth/login', userInfo);
   }
 
   register(email: string = '', password: string = '', username: string = '') {
@@ -23,13 +23,13 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('access_token');
   }
 
   isLoggedIn(): boolean {
-    const localStorage = this.document.defaultView?.localStorage;
-    if (!localStorage) return false;
-    const token = localStorage.getItem('token');
+    const sessionStorage = this.document.defaultView?.sessionStorage;
+    if (!sessionStorage) return false;
+    const token = sessionStorage.getItem('access_token');
     if (token) return true;
     else return false;
   }

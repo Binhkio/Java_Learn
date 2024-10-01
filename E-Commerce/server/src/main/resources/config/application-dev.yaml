@@ -9,7 +9,7 @@ logging:
 spring:
   datasource:
     # jdbc properties to connect to database
-    jdbcUrl: jdbc:mysql://localhost:3306/ecommerce?createDatabaseIfNotExist=true
+    jdbcUrl: jdbc:mysql://localhost:3306/ecommerce?createDatabaseIfNotExist=true&useSSL=false
     username: root
     password: admin123
     isAutoCommit: false

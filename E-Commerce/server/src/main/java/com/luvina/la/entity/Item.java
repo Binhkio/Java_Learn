@@ -20,9 +20,8 @@ public class Item {
     @JsonBackReference(value = "item-cart")
     private Cart cart;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", nullable = false, referencedColumnName = "product_id")
-    @JsonIgnoreProperties(value = "product")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     private int quantity;

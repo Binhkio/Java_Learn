@@ -24,10 +24,6 @@ public class Product {
 
     private float price;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @JsonIgnore()
-    private Set<Item> items;
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "category_id")
     @JsonIgnoreProperties(value = "product")

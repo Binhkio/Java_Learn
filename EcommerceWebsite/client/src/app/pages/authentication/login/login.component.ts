@@ -13,11 +13,20 @@ export class LoginComponent {
 
   constructor(private auth: AuthService, private router: Router) {}
 
+  ngOnInit() {
+    sessionStorage.removeItem('access_token');
+    if (this.router.url === '/logout') {
+      this.router.navigate(['login']);
+    }
+  }
+
   onSubmit() {
     this.auth.login(this.email, this.password).subscribe(data => {
-      const token = data.accessToken;
-      localStorage.setItem('token', token);
-      this.router.navigateByUrl('/homepage');
+      if (data && data?.accessToken && data?.tokenType) {
+        sessionStorage.setItem("access_token", data?.accessToken);
+        sessionStorage.setItem("token_type", data?.tokenType);
+        this.router.navigateByUrl('/homepage');
+      }
     });
   }
 }
