@@ -2,6 +2,8 @@ package com.luvina.la.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,7 +19,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "cart_id", nullable = false, referencedColumnName = "cart_id")
-    @JsonBackReference(value = "item-cart")
+    @JsonBackReference
     private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -24,7 +24,7 @@ public class Product {
 
     private float price;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "category_id")
     @JsonIgnoreProperties(value = "product")
     private Category category;

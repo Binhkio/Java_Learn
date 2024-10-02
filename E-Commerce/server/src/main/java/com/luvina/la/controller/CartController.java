@@ -1,5 +1,6 @@
 package com.luvina.la.controller;
 
+import com.luvina.la.config.jwt.AuthUserDetails;
 import com.luvina.la.entity.Cart;
 import com.luvina.la.entity.User;
 import com.luvina.la.repository.CartRepository;
@@ -24,9 +25,8 @@ public class CartController {
      */
     @GetMapping("")
     public Cart getCart(Authentication authentication) {
-        User u = (User) authentication.getPrincipal();
-        User user = userRepository.findById(u.getId()).orElse(null);
-        assert user != null;
+        AuthUserDetails u = (AuthUserDetails) authentication.getPrincipal();
+        User user = u.getUser();
         return cartRepository.findById(user.getCart().getId()).orElse(null);
     }
 }

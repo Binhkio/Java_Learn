@@ -25,6 +25,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TokenInterceptor } from './shared/auth/token.interceptor';
+import { CartComponent } from './pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { TokenInterceptor } from './shared/auth/token.interceptor';
     FullComponent,
     NavbarComponent,
     CategoryComponent,
-    ProductComponent
+    ProductComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

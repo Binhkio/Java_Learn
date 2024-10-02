@@ -8,6 +8,7 @@ import { protectRoute } from './protect.route';
 import { RegisterComponent } from './pages/authentication/register/register.component';
 import { ProductComponent } from './pages/product/product.component';
 import { AuthorizeGuard } from './shared/auth/authorize.guard';
+import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
         path: 'product/:id',
         component: ProductComponent,
         title: 'Product detail'
+      },
+      {
+        path: 'cart',
+        component: CartComponent,
+        title: 'Cart'
       }
     ],
   },
@@ -50,7 +56,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/auth/login'
+    redirectTo: '/homepage'
   }
 ];
 
